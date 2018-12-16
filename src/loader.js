@@ -133,6 +133,12 @@ export function pitch(request) {
       resultSource += `\nmodule.exports = ${JSON.stringify(locals)};`;
     }
 
+    /* eslint-disable */
+    if (query.transform) {
+      eval(query.transform)(this, query, locals);
+    }
+    /* eslint-enable */
+
     return callback(null, resultSource);
   });
 }
