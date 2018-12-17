@@ -1,8 +1,9 @@
 'use strict';
 
+const { resolve } = require('path');
+
 const fs = require('fs-extra');
 const glob = require('glob');
-const { resolve } = require('path');
 
 const cached = [];
 
@@ -20,14 +21,14 @@ module.exports = (loaderContext, options, keys) => {
     cached.push(scssFileDir);
     fs.removeSync(scssFileDir);
     fs.ensureFileSync(scssFileDir);
-    glob.sync(`${rootDir}/**/*.${extension}`).map(fileDir => {
+    glob.sync(`${rootDir}/**/*.${extension}`).forEach(fileDir => {
       const relativeFileDir = `.${fileDir.replace(rootDir, '')}`;
       fs.copySync(fileDir, resolve(scssDir, relativeFileDir));
     });
   }
 
   // Output scss.js file
-  fs.outputFileSync(resolve(outDir, relativeResourcePath) + '.js', `module.exports = ${JSON.stringify(keys)}`);
+  fs.outputFileSync(`${resolve(outDir, relativeResourcePath)}.js`, `module.exports = ${JSON.stringify(keys)}`);
 
   // Append scss file to scssFileDir
   if (scssFileDir) {
