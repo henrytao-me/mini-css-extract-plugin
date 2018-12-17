@@ -45,7 +45,7 @@ module.exports = (loaderContext, options, namespaces) => {
         new RegExp(`\\.${className}(?!-)\\b`, 'g'),
         `.${namespaces[className]}`
       ),
-    fs.readFileSync(resolve(scssDir, relativeResourcePath), 'utf8')
+    fs.readFileSync(resourcePath, 'utf8')
   );
   fs.outputFileSync(resolve(scssDir, relativeResourcePath), content);
 

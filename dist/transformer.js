@@ -41,9 +41,7 @@ module.exports = (loaderContext, options, namespaces) => {
   }
 
   // Write *.[style] file with updated classnames
-  const content = Object.keys(namespaces).reduce((content, className) => {
-    return content.replace(new RegExp(`\\.${className}(?!-)\\b`, 'g'), `.${namespaces[className]}`);
-  }, fs.readFileSync(resolve(scssDir, relativeResourcePath), 'utf8'));
+  const content = Object.keys(namespaces).reduce((content, className) => content.replace(new RegExp(`\\.${className}(?!-)\\b`, 'g'), `.${namespaces[className]}`), fs.readFileSync(resourcePath, 'utf8'));
   fs.outputFileSync(resolve(scssDir, relativeResourcePath), content);
 
   // Write *.[style].js file
