@@ -8,7 +8,8 @@ const glob = require('glob');
 const cached = [];
 
 module.exports = (loaderContext, options, keys) => {
-  const { extension = 'scss', rootDir, outDir, scssDir, filename } = options;
+  const { extension = 'scss', rootDir, outDir, scssDir } = options;
+  const filename = options.filename || `index.${extension}`;
   if (!rootDir || !outDir) {
     throw new Error('Missing rootDir | outDir');
   }
